@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
-import { createServer } from "@vercel/node"; // Nodig voor Vercel
 
 const app = express();
+app.use(cors());
 
 // ✅ Alle 40 unieke hoodie QR-codes
 const validCodes = {
@@ -13,7 +13,7 @@ const validCodes = {
   "OV-DROP1-69K0": "hoodie-drop1-white",
   "OV-DROP1-6ELT": "hoodie-drop1-white",
   "OV-DROP1-6PT3": "hoodie-drop1-white",
-  "OV-DROP1-763L": "hoodie-drop1-white",
+  "OV-DROP1-763L": "hoodie-drop1-white", // ✅
   "OV-DROP1-7LAC": "hoodie-drop1-white",
   "OV-DROP1-7SAV": "hoodie-drop1-white",
   "OV-DROP1-7UKD": "hoodie-drop1-white",
@@ -48,14 +48,13 @@ const validCodes = {
   "OV-DROP1-XTRB": "hoodie-drop1-white",
 };
 
-
-app.get('/api/verifyBadge', (req, res) => {
+app.get("/api/verifyBadge", (req, res) => {
   const code = req.query.code?.trim().toUpperCase();
 
   if (!code) {
     return res.status(400).json({
       valid: false,
-      message: "Code ontbreekt"
+      message: "Code ontbreekt",
     });
   }
 
@@ -63,14 +62,14 @@ app.get('/api/verifyBadge', (req, res) => {
     return res.json({
       valid: true,
       hoodieVariant: validCodes[code],
-      message: "✅ Code geldig – toegang verleend"
+      message: "✅ Code geldig – toegang verleend",
     });
   } else {
     return res.json({
       valid: false,
-      message: "❌ Ongeldige code – toegang geweigerd"
+      message: "❌ Ongeldige code – toegang geweigerd",
     });
   }
 });
 
-module.exports = app;
+export default app;

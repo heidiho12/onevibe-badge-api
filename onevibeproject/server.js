@@ -1,8 +1,6 @@
-import express from "express";
 import cors from "cors"; // ✅ voeg deze regel toe
 
 const app = express();
-const port = process.env.PORT || 5173;
 
 app.use(cors({
   origin: [
@@ -77,3 +75,7 @@ app.get("/verifyBadge", (req, res) => {
   res.status(404).json({ valid: false, message: "❌ Ongeldige code" });
 });
 
+// ✅ Hier start je de server
+app.listen(process.env.PORT || 3000, () => {
+  console.log("✅ Badge API draait");
+});
